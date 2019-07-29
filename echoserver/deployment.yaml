@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: echoserver
 spec:
-  replicas: 4
+  replicas: 3
   template:
     metadata:
       labels:
