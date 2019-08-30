@@ -1,9 +1,10 @@
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: echoserver
 spec:
-  replicas: 5
+  replicas: 2
   template:
     metadata:
       labels:
@@ -15,3 +16,24 @@ spec:
         name: echoserver
         ports:
         - containerPort: 8080
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: echoserver
+  name: echoserver
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: echoserver
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
